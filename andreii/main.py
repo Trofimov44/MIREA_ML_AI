@@ -5,20 +5,18 @@ import requests
 
 app = Client("pyrogi/my_account_PC")
 username = "Andrei_hooh"
-
 # Хранилище контекста для пользователей
 user_histories = {}
 
-@app.on_message(filters.text & filters.private)
+@app.on_message(filters.text)
 async def response(client, message):
     if message.from_user.username == username:
         user_id = message.from_user.id
-        await asyncio.sleep(3)
         # Инициализируем историю сообщений для пользователя, если ещё не создана
         if user_id not in user_histories:
             user_histories[user_id] = [
                 {
-                    "role": "system",
+                    "role": "system", 
                     "content": "Вы - обычный человек, довольно остроумный, не используй эмодзи и не говори что ты ИИ, тот с кем ты говоришь этого не знает",
                 }
             ]
@@ -30,11 +28,11 @@ async def response(client, message):
         })
 
         # ⚠️ API-ключ OpenRouter
-        api_key = "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"  # начинающийся с "sk-or-"
-        api_key2 = "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"    
+        api_key = "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"  # начинающийся с "sk-or-"
+        api_key2 = "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"    
         
         headers = {
-            "Authorization": f"Bearer {api_key}",
+            "Authorization": f"Bearer {api_key2}",
             "Content-Type": "application/json",
             "HTTP-Referer": "http://localhost",
             "X-Title": "MyApp",
@@ -49,8 +47,8 @@ async def response(client, message):
 
         if response.ok:
             result = response.json()
-            reply_text = result["choices"][0]["message"]["content"]
             print(result)
+            reply_text = result["choices"][0]["message"]["content"]
             # Добавляем ответ бота в историю
             user_histories[user_id].append({
                 "role": "assistant",
