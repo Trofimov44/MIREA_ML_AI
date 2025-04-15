@@ -4,7 +4,7 @@ import os
 import requests
 
 app = Client("pyrogi/my_account_PC")
-username = "Andrei_hooh"
+username = ""
 # Хранилище контекста для пользователей
 user_histories = {}
 
